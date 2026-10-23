@@ -80,9 +80,9 @@ flowchart TD
 
 | Componente | Descrição |
 |------------|-----------|
-| Interface | Chatbot desenvolvido em Streamlit, com interface simples e acessível para interação com o FIN.AI |
-| LLM | Modelo de linguagem responsável por interpretar as perguntas e gerar respostas em linguagem natural com base no contexto fornecido. |
-| Base de Conhecimento | Arquivos CSV e JSON contendo transações financeiras, histórico de atendimento, perfil do investidor e produtos financeiros. |
+| Interface | Streamlit(https://streamlit.io/) |
+| LLM | Ollama (local) |
+| Base de Conhecimento | Arquivos JSON/CSV na pasta `data` |
 | Validação | Verificação da disponibilidade de informações na base antes da resposta, evitando suposições, dados inventados e respostas sem evidências suficientes. |
 
 ---
