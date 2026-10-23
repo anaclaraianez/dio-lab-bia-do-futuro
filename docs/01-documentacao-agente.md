@@ -65,22 +65,25 @@ O FIN.AI utiliza uma comunicação acessível, amigável e didática, mantendo u
 
 ```mermaid
 flowchart TD
-    A[Cliente] -->|Mensagem| B[Interface]
-    B --> C[LLM]
+    A[Usuário] -->|Pergunta financeira| B[Interface FIN.AI]
+    B --> C[Assistente de IA]
     C --> D[Base de Conhecimento]
     D --> C
-    C --> E[Validação]
-    E --> F[Resposta]
+    C --> E{Informação suficiente?}
+    E -->|Sim| F[Analisar os dados]
+    F --> G[Gerar resposta clara e segura]
+    E -->|Não| H[Informar limitação]
+    H --> I[Oferecer alternativa útil]
 ```
 
 ### Componentes
 
 | Componente | Descrição |
 |------------|-----------|
-| Interface | [ex: Chatbot em Streamlit] |
-| LLM | [ex: GPT-4 via API] |
-| Base de Conhecimento | [ex: JSON/CSV com dados do cliente] |
-| Validação | [ex: Checagem de alucinações] |
+| Interface | Chatbot desenvolvido em Streamlit, com interface simples e acessível para interação com o FIN.AI |
+| LLM | Modelo de linguagem responsável por interpretar as perguntas e gerar respostas em linguagem natural com base no contexto fornecido. |
+| Base de Conhecimento | Arquivos CSV e JSON contendo transações financeiras, histórico de atendimento, perfil do investidor e produtos financeiros. |
+| Validação | Verificação da disponibilidade de informações na base antes da resposta, evitando suposições, dados inventados e respostas sem evidências suficientes. |
 
 ---
 
@@ -88,12 +91,28 @@ flowchart TD
 
 ### Estratégias Adotadas
 
-- [ ] [ex: Agente só responde com base nos dados fornecidos]
-- [ ] [ex: Respostas incluem fonte da informação]
-- [ ] [ex: Quando não sabe, admite e redireciona]
-- [ ] [ex: Não faz recomendações de investimento sem perfil do cliente]
+- Responde com base nas informações disponíveis na base de conhecimento.
+- Não inventa valores, transações, produtos financeiros, taxas ou informações ausentes.
+- Quando não possui dados suficientes para responder com segurança, informa claramente essa limitação.
+- Diferencia informações disponíveis de interpretações ou orientações gerais.
+- Não apresenta previsões sobre o comportamento futuro de investimentos como fatos.
+- Considera o perfil do investidor antes de apresentar produtos financeiros disponíveis na base.
+- Utiliza linguagem cautelosa, clara e não julgadora em assuntos financeiros.
+- Sempre que possível, oferece uma alternativa útil quando não consegue responder à pergunta original.
 
 ### Limitações Declaradas
 > O que o agente NÃO faz?
 
-[Liste aqui as limitações explícitas do agente]
+O FIN.AI possui as seguintes limitações:
+
+- Não acessa contas bancárias ou informações financeiras externas à base de conhecimento fornecida.
+- Não inventa saldos, receitas, despesas, transações, taxas ou produtos que não estejam disponíveis nos dados utilizados pelo projeto.
+- Não prevê preços futuros de ações, criptomoedas ou outros investimentos.
+- Não garante rentabilidade ou resultados futuros de investimentos.
+- Não substitui orientação profissional especializada.
+- Não recomenda produtos incompatíveis com as informações de perfil disponíveis na base.
+- Não responde com certeza quando os dados disponíveis forem insuficientes para sustentar uma conclusão.
+- Não realiza movimentações financeiras, transferências, pagamentos ou investimentos.
+- Trabalha somente com as informações disponibilizadas ao protótipo.
+
+O objetivo do FIN.AI é apoiar a compreensão e organização das informações financeiras disponíveis, oferecendo análises claras e educativas sem substituir a decisão da pessoa usuária.
