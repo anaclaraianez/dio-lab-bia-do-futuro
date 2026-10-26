@@ -1,149 +1,167 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+💰 FIN.AI | Assistente Virtual Financeiro com Inteligência Artificial
 
-## Contexto
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
+📌 Sobre o Projeto
 
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
+O FIN.AI é um assistente virtual financeiro desenvolvido como parte do desafio "Construa Seu Assistente Virtual Com Inteligência Artificial".
 
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+O objetivo do projeto é demonstrar, de forma prática, como a Inteligência Artificial Generativa pode utilizar uma base de conhecimento estruturada para fornecer respostas contextualizadas, claras e seguras.
 
----
+O FIN.AI apoia o usuário na compreensão de suas finanças pessoais, considerando informações como perfil financeiro, transações, objetivos, histórico de atendimento e produtos financeiros disponíveis.
 
-## O Que Você Deve Entregar
+🎯 Objetivo
 
-### 1. Documentação do Agente
+Criar um protótipo funcional de um assistente financeiro capaz de:
 
-Defina **o que** seu agente faz e **como** ele funciona:
+Responder dúvidas sobre a situação financeira do usuário;
+Consultar informações disponíveis em uma base de conhecimento;
+Considerar o perfil financeiro do cliente;
+Apoiar a interpretação de receitas, despesas e objetivos;
+Apresentar produtos financeiros disponíveis na base quando aplicável;
+Evitar respostas inventadas;
+Reconhecer quando não possui informações suficientes;
+Manter as respostas dentro do escopo de finanças pessoais.
 
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
+🤖 Como o FIN.AI Funciona
 
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
+O usuário interage com o FIN.AI através de uma interface desenvolvida em Streamlit.
 
----
+A pergunta é combinada com:
 
-### 2. Base de Conhecimento
+System Prompt do agente;
+Perfil financeiro do cliente;
+Histórico de transações;
+Histórico de atendimento;
+Produtos financeiros disponíveis.
+Essas informações são enviadas para um modelo de linguagem executado localmente através do Ollama.
 
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
+Fluxo simplificado:
 
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
+Usuário
+↓
+Interface Streamlit
+↓
+Pergunta
+↓
+System Prompt + Contexto
+↓
+Base de Conhecimento
+↓
+Modelo de IA via Ollama
+↓
+Resposta do FIN.AI
 
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
+🧠 Base de Conhecimento
 
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
+O FIN.AI utiliza quatro fontes principais de informação:
 
----
+perfil_investidor.json
+Contém informações sobre o cliente, como perfil financeiro, renda, patrimônio, objetivos e reserva de emergência.
 
-### 3. Prompts do Agente
+transacoes.csv
+Contém as transações utilizadas pelo agente para interpretar receitas, despesas e categorias de gastos.
 
-Documente os prompts que definem o comportamento do seu agente:
+historico_atendimento.csv
+Fornece contexto sobre interações anteriores disponíveis para o agente.
 
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
+produtos_financeiros.json
+Contém os produtos financeiros que podem ser considerados pelo FIN.AI durante as respostas.
 
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
+🛡️ Segurança e Confiabilidade
 
----
+Uma das principais preocupações do projeto é reduzir respostas inventadas ou sem fundamento nos dados disponíveis.
 
-### 4. Aplicação Funcional
+Por isso, o FIN.AI foi orientado a:
 
-Desenvolva um **protótipo funcional** do seu agente:
+Não inventar valores, transações ou produtos;
+Utilizar as informações presentes na base de conhecimento;
+Informar quando não possui contexto suficiente;
+Não garantir resultados ou rentabilidade de produtos financeiros;
+Respeitar o escopo de finanças pessoais;
+Não fornecer informações confidenciais de outros clientes;
+Considerar o perfil financeiro disponível antes de contextualizar respostas.
 
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
+💬 Exemplo de Uso
+Pergunta:
 
-📁 **Pasta:** [`src/`](./src/)
+Quanto gastei com alimentação?
 
----
+O FIN.AI consulta os dados disponíveis em transacoes.csv e utiliza essas informações para elaborar a resposta.
 
-### 5. Avaliação e Métricas
+Outro exemplo:
 
-Descreva como você avalia a qualidade do seu agente:
+Qual investimento você recomenda para mim?
 
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
+Nesse cenário, o agente considera o perfil financeiro disponível e os produtos cadastrados na base de conhecimento antes de elaborar a resposta.
 
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
+🧪 Testes Realizados
 
----
+O agente foi avaliado em diferentes cenários.
 
-### 6. Pitch
+Teste 1 - Consulta de gastos
+Pergunta:
+"Quanto gastei com alimentação?"
 
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
+Objetivo:
+Validar se o agente utiliza corretamente os dados disponíveis em transacoes.csv.
 
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
+Teste 2 - Produto financeiro
+Pergunta:
+"Qual investimento você recomenda para mim?"
 
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
+Objetivo:
+Verificar se a resposta considera o perfil financeiro do cliente e os produtos disponíveis na base.
 
----
+Teste 3 - Pergunta fora do escopo
+Pergunta:
+"Qual a previsão do tempo?"
 
-## Ferramentas Sugeridas
+Objetivo:
+Verificar se o FIN.AI reconhece que a solicitação está fora do seu escopo.
 
-Todas as ferramentas abaixo possuem versões gratuitas:
+Teste 4 - Informação inexistente
+Pergunta:
+"Quanto rende o produto XYZ?"
 
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
+Objetivo:
+Avaliar se o agente reconhece a ausência da informação em vez de criar uma resposta inexistente.
 
----
+✅ O que Funcionou Bem
 
-## Estrutura do Repositório
+O agente respondeu de forma clara e contextualizada utilizando as informações das bases de conhecimento;
+O FIN.AI respeitou o perfil financeiro do cliente e as regras definidas no System Prompt;
+Perguntas fora do escopo e informações inexistentes foram tratadas adequadamente durante os testes;
+A integração das bases de dados com o modelo de IA e a interface permitiu criar um protótipo funcional do assistente.
 
-```
-📁 lab-agente-financeiro/
+🔧 Tecnologias Utilizadas
+
+Python
+Streamlit
+Pandas
+Requests
+JSON
+CSV
+Ollama
+Modelo de linguagem local
+
+📁 Estrutura do Projeto
+
+fin-ai/
 │
-├── 📄 README.md
+├── data/
+│   ├── perfil_investidor.json
+│   ├── transacoes.csv
+│   ├── historico_atendimento.csv
+│   └── produtos_financeiros.json
 │
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
+├── docs/
+│   ├── documentação do agente
+│   ├── prompts
+│   ├── testes
+│   └── pitch
 │
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
+├── src/
+│   └── app.py
 │
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
-│
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
-│
-└── 📁 examples/                      # Referências e exemplos
-    └── README.md
-```
-
----
-
-## Dicas Finais
-
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
+├── requirements.txt
+└── README.md
